@@ -791,8 +791,11 @@ function newGameFromWin() {
 function closeWinScreen() {
   stopFireworks();
   document.getElementById('winScreen').classList.remove('show');
-  // أظهر مودال النتيجة إن كان موجوداً
-  document.getElementById('endModal').classList.add('show');
+  if (pendingEndModal) {
+    const { uCards, cCards, uRound, cRound } = pendingEndModal;
+    showEndModal(uCards, cCards, uRound, cRound);
+    pendingEndModal = null;
+  }
 }
 
 // ════════════════════════════════════════
@@ -845,7 +848,11 @@ function newGameFromLose() {
 function closeLoseScreen() {
   stopLeaves();
   document.getElementById('loseScreen').classList.remove('show');
-  document.getElementById('endModal').classList.add('show');
+  if (pendingEndModal) {
+    const { uCards, cCards, uRound, cRound } = pendingEndModal;
+    showEndModal(uCards, cCards, uRound, cRound);
+    pendingEndModal = null;
+  }
 }
 
 // ════════════════════════════════════════
