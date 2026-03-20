@@ -878,22 +878,14 @@ let roundUserBasra = 0, roundCpuBasra = 0;
 let aiLock = false;
 let pendingEndModal = null; // لتخزين بيانات النهاية
 
-// ════ صوت البداية — مرافق لانبثاق شاشة البداية ════
+// ════ صوت البداية — عند أول حرف في حقل الاسم ════
 let splashSoundPlayed = false;
 function initSplashMusic() {
   if (splashSoundPlayed) return;
   splashSoundPlayed = true;
   playSplashMusic();
 }
-// الطريقة الأدق: عند بداية أنيميشن الانبثاق (splashEntry = 1.2s)
-// نشغل الصوت في منتصفه تماماً
-document.getElementById('splashContent').addEventListener('animationstart', () => {
-  setTimeout(initSplashMusic, 200); // بعد 200ms من بداية الانبثاق
-}, { once: true });
-// احتياطي جوال: أول لمسة على الشاشة قبل الضغط
-const splashEl = document.getElementById('splashScreen');
-splashEl.addEventListener('touchstart', initSplashMusic, { once: true });
-splashEl.addEventListener('mouseenter', initSplashMusic, { once: true });
+document.getElementById('userNameInput').addEventListener('input', initSplashMusic, { once: true });
 
 function startGame() {
   const n = document.getElementById('userNameInput').value.trim();
