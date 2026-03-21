@@ -878,6 +878,7 @@ let isUserTurn = false;
 let dealer = "user";
 let userPile = [], cpuPile = [];
 let roundUserBasra = 0, roundCpuBasra = 0;
+let userJackBasra = false, cpuJackBasra = false;
 let aiLock = false;
 let pendingEndModal = null; // لتخزين بيانات النهاية
 
@@ -1039,8 +1040,8 @@ function processMove(card, player) {
     if (field.length === 0) { field.push(card); showMsg(`${player === 'user' ? userName : 'الكمبيوتر'} رمى الولد في ميدان فارغ`); return; }
     if (field.length === 1 && topCard.type === 'J') {
       const earned = 20;
-      if (player === 'user') { userPile.push(...field, card); roundUserBasra += earned; userBasraImgs.push(card.img); }
-      else { cpuPile.push(...field, card); roundCpuBasra += earned; cpuBasraImgs.push(card.img); }
+      if (player === 'user') { userPile.push(...field, card); roundUserBasra += earned; userJackBasra = true; userBasraImgs.push(card.img); }
+      else { cpuPile.push(...field, card); roundCpuBasra += earned; cpuJackBasra = true; cpuBasraImgs.push(card.img); }
       field = []; lastEater = player; sndBasra();
       showBasraFlash('باصرة الولد! ♛');
       showMsg(`${player === 'user' ? userName : 'الكمبيوتر'} باصرة الولد! +20 نقطة`);
